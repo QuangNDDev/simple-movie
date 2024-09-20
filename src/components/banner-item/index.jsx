@@ -1,6 +1,7 @@
 import React from "react";
 
 function BannerItem({ bannerItem }) {
+  // console.log("bannerItem", bannerItem);
   const { title, poster_path } = bannerItem;
   return (
     <div className="relative w-full h-full rounded-lg">
@@ -12,20 +13,19 @@ function BannerItem({ bannerItem }) {
       />
       <div className="absolute w-full mb-5 text-white left-5 bottom-5">
         <h2 className="mb-5 text-3xl font-bold">{title}</h2>
+
         <div className="flex items-center mb-5 gap-x-3">
           <span className="px-4 py-2 border border-white rounded-md">
-            Anime
-          </span>
-          <span className="px-4 py-2 border border-white rounded-md">
-            Action
-          </span>
-          <span className="px-4 py-2 border border-white rounded-md">
             Comedy
+          </span>
+          <span className="px-4 py-2 border border-white rounded-md">
+            Anime
           </span>
           <span className="px-4 py-2 border border-white rounded-md">
             Adventure
           </span>
         </div>
+
         <button className="px-6 py-3 font-medium text-white rounded-lg bg-primary">
           Watch Now
         </button>
