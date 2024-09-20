@@ -1,7 +1,5 @@
 import MovieCard from "../movie-card";
 import { SwiperSlide, Swiper } from "swiper/react";
-import "swiper/scss"; // Import CSS mặc định của Swiper
-import "swiper/scss/autoplay"; // CSS cho autoplay, nếu cần
 import useSWR from "swr";
 import { fetcher } from "../../config/config";
 import { useEffect, useState } from "react";
@@ -21,8 +19,8 @@ function MoviesList({ type = "now_playing", text = "now playing" }) {
   }, [data]); // Khi API phản hồi và data được cập nhật từ undefined sang dữ liệu thật, useEffect sẽ được kích hoạt lại.
 
   return (
-    <section className="page-container pb-20">
-      <h2 className="capitalize text-white font-bold text-3xl mb-10">{text}</h2>
+    <section className="pb-20 page-container">
+      <h2 className="mb-10 text-3xl font-bold text-white capitalize">{text}</h2>
       <div className="movie-list">
         <Swiper
           modules={[Autoplay]}
@@ -33,7 +31,6 @@ function MoviesList({ type = "now_playing", text = "now playing" }) {
             delay: 2500,
             disableOnInteraction: false,
           }}
-          loop={true}
         >
           {movies.map((movie) => (
             <SwiperSlide key={movie.id}>
