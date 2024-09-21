@@ -12,13 +12,13 @@ function Movies() {
     `https://api.themoviedb.org/3/movie/popular?api_key=e050194db86d849bf31a7f92702a922e`,
     fetcher
   );
-  const { data: dataSearch } = useSWR(
+  const { isLoading, data: dataSearch } = useSWR(
     query
       ? `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=e050194db86d849bf31a7f92702a922e`
       : null,
     fetcher
   );
-  console.log(query);
+  console.log(isLoading);
   useEffect(() => {
     if (dataSearch && dataSearch.results) {
       setMovies(dataSearch.results);
@@ -58,10 +58,15 @@ function Movies() {
           </svg>
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-10">
-        {movies.length > 0 &&
-          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
-      </div>
+      {isLoading && (
+        <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full border-primary border-t-transparent animate-spin"></div>
+      )}
+      {!isLoading && (
+        <div className="grid grid-cols-4 gap-10">
+          {movies.length > 0 &&
+            movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+        </div>
+      )}
     </div>
   );
 }

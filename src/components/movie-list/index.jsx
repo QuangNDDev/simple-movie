@@ -7,7 +7,7 @@ import { Autoplay } from "swiper/modules";
 
 function MoviesList({ type = "now_playing", text = "now playing" }) {
   const [movies, setMovies] = useState([]);
-  const { data } = useSWR(
+  const { data, isLoading } = useSWR(
     `https://api.themoviedb.org/3/movie/${type}?api_key=e050194db86d849bf31a7f92702a922e`,
     fetcher
   );
@@ -32,11 +32,16 @@ function MoviesList({ type = "now_playing", text = "now playing" }) {
             disableOnInteraction: false,
           }}
         >
-          {movies.map((movie) => (
-            <SwiperSlide key={movie.id}>
-              <MovieCard movie={movie} />
-            </SwiperSlide>
-          ))}
+          {isLoading && (
+            <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full border-primary border-t-transparent animate-spin"></div>
+          )}
+
+          {!isLoading &&
+            movies.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <MovieCard movie={movie} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>
