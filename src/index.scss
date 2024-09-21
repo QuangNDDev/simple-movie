@@ -19,4 +19,30 @@
   .banner .swiper {
     height: 100%;
   }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  .page-item {
+    margin: 0 5px;
+  }
+  .page-link {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    color: #fff;
+    background-color: #191a2e;
+    cursor: pointer;
+  }
+  .page-link:hover {
+    background-color: #555;
+  }
+  .active .page-link {
+    background-color: #f62682;
+    color: white;
+  }
+  .secondary {
+    background-color: #5649d7;
+  }
 }

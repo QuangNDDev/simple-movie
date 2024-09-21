@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Button from "../button";
 
 function MovieCard({ movie }) {
   const { title, release_date, poster_path, vote_average, id } = movie;
@@ -17,12 +18,7 @@ function MovieCard({ movie }) {
             <span>{new Date(release_date).getFullYear()}</span>
             <span>{vote_average}</span>
           </div>
-          <button
-            className="w-full px-6 py-3 mt-auto font-semibold capitalize rounded-lg bg-primary"
-            onClick={() => navigate(`/movies/${id}`)}
-          >
-            watch now
-          </button>
+          <Button onClick={() => navigate(`/movies/${id}`)}>Watch now</Button>
         </div>
       </div>
     </>
