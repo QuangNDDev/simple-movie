@@ -1,16 +1,13 @@
 import MovieCard from "../movie-card";
 import { SwiperSlide, Swiper } from "swiper/react";
 import useSWR from "swr";
-import { fetcher } from "../../config/config";
+import { fetcher, tmdbAPI } from "../../config/config";
 import { useEffect, useState } from "react";
 import { Autoplay } from "swiper/modules";
 
 function MoviesList({ type = "now_playing", text = "now playing" }) {
   const [movies, setMovies] = useState([]);
-  const { data, isLoading } = useSWR(
-    `https://api.themoviedb.org/3/movie/${type}?api_key=e050194db86d849bf31a7f92702a922e`,
-    fetcher
-  );
+  const { data, isLoading } = useSWR(tmdbAPI.getMovieList(type), fetcher);
 
   useEffect(() => {
     if (data && data.results) {

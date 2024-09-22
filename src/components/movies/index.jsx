@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { fetcher } from "../../config/config";
+import { fetcher, tmdbAPI } from "../../config/config";
 import MovieCard from "../movie-card";
 import ReactPaginate from "react-paginate";
 
@@ -10,15 +10,9 @@ function Movies() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
-  const { data } = useSWR(
-    `https://api.themoviedb.org/3/movie/popular?api_key=e050194db86d849bf31a7f92702a922e&page=${page}`,
-    fetcher
-  );
-
+  const { data } = useSWR(tmdbAPI.getMovieList("popular", page), fetcher);
   const { isLoading, data: dataSearch } = useSWR(
-    query
-      ? `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=e050194db86d849bf31a7f92702a922e&page=${page}`
-      : null,
+    query ? tmdbAPI.getmovieSearch(query, page) : null,
     fetcher
   );
 
@@ -31,11 +25,15 @@ function Movies() {
   }, [data, dataSearch, page]);
 
   const handlePageClick = (event) => {
-    setPage(event.selected + 1); // ReactPaginate gives zero-based index, so add 1
+    setPage(event.selected + 1);
   };
 
-  if (!data) return null;
-  const { total_pages } = data;
+  if (!data && !dataSearch) return null;
+
+  const total_pages =
+    dataSearch && dataSearch.total_pages
+      ? dataSearch.total_pages
+      : data.total_pages;
 
   return (
     <div className="py-10 text-white page-container">
@@ -85,10 +83,10 @@ function Movies() {
           previousLabel={"← Previous"}
           nextLabel={"Next →"}
           breakLabel={"..."}
-          pageCount={total_pages} // Total number of pages
+          pageCount={total_pages}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
-          onPageChange={handlePageClick} // Handle page change
+          onPageChange={handlePageClick}
           containerClassName={"pagination"}
           pageClassName={"page-item"}
           pageLinkClassName={"page-link"}

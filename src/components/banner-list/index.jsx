@@ -3,7 +3,6 @@ import { fetcher } from "../../config/config";
 import { useEffect, useState } from "react";
 import BannerItem from "../banner-item";
 import { SwiperSlide, Swiper } from "swiper/react";
-
 import { Autoplay } from "swiper/modules";
 
 function BannerList() {

@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
+import { tmdbImage } from "../../config/config";
 
 function BannerItem({ bannerItem }) {
   const { title, poster_path, id } = bannerItem;
@@ -9,7 +10,7 @@ function BannerItem({ bannerItem }) {
     <div className="relative w-full h-full rounded-lg">
       <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)]"></div>
       <img
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        src={tmdbImage.imageMeta("w500", poster_path)}
         alt=""
         className="object-cover object-top w-full h-full rounded-lg"
       />
@@ -28,7 +29,7 @@ function BannerItem({ bannerItem }) {
           </span>
         </div>
         <Button
-          className="w-auto bg-primary"
+          className="bg-primary"
           onClick={() => navigate(`/movies/${id}`)}
         >
           Watch now

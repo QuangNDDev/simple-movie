@@ -1,15 +1,12 @@
 import { useParams } from "react-router-dom";
-import { fetcher } from "../../config/config";
+import { fetcher, tmdbAPI } from "../../config/config";
 import useSWR from "swr";
 import MovieCastitem from "../movie-cast-item";
 
 function MovieCredit() {
   //https://api.themoviedb.org/3/movie/movie_id/credits?api_key=e050194db86d849bf31a7f92702a922e
   const { movieId } = useParams();
-  const { data, error } = useSWR(
-    `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=e050194db86d849bf31a7f92702a922e`,
-    fetcher
-  );
+  const { data, error } = useSWR(tmdbAPI.getMovieCredit(movieId), fetcher);
   if (!data) return null;
   const { cast } = data;
   console.log(data);

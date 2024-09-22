@@ -1,8 +1,10 @@
-function Button({ onClick, className = "bg-primary", children }) {
+function Button({ onClick, className = "bg-primary", children, full = false }) {
   return (
     <>
       <button
-        className={`w-full px-6 py-3 mt-auto font-semibold capitalize rounded-lg ${className}`}
+        className={`${
+          full ? "w-full" : "w-auto"
+        }w-full px-6 py-3 mt-auto font-semibold capitalize rounded-lg ${className}`}
         onClick={onClick}
       >
         {children}

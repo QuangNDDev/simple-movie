@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { fetcher } from "../../config/config";
+import { fetcher, tmdbAPI } from "../../config/config";
 function MovieVideo() {
   // https://api.themoviedb.org/3/movie/movie_id/videos?api_key=e050194db86d849bf31a7f92702a922e
   const { movieId } = useParams();
   const { data, error } = useSWR(
-    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e050194db86d849bf31a7f92702a922e`,
+    tmdbAPI.getMovieMeta(movieId, "videos"),
     fetcher
   );
   if (!data) return null;
